@@ -9,6 +9,8 @@ composer require wexample/symfony-notification
 Wexample\SymfonyNotification\WexampleSymfonyNotificationBundle::class => ['all' => true],
 ```
 
+Notifications are sent through Messenger: `framework.messenger` must be on — synchronous unless `DeliverNotificationsMessage` is routed to a transport.
+
 The bundle maps two tables, `notification` (the inbox) and `notification_preference` (each recipient's choices): generate a migration after installing.
 
 ```bash
