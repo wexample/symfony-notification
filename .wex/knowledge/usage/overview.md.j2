@@ -39,6 +39,7 @@ $notifications->notify('invoice.validated', $organization->getMembers(), $invoic
 - One `Notification` per recipient allowed to receive it (`roles`, through the hierarchy), each kept in its inbox: the inbox is no channel, nothing turns it off.
 - Then `DeliverNotificationsMessage`, ids only, sends them: through each personal channel the recipient keeps, then once through each broadcast channel. Synchronous, unless the application routes the message to a transport — the texts are built when sending, in each recipient's language, never in the queue.
 - A channel failing is logged and the others go on.
+- A category with no `route` links to the `url` parameter, when sent with one: a link no route gives, a signed link for someone without an account.
 - The actor and the recipient are separate fields; recipients and actors are kept by type and id, the subject through symfony-helpers' `LinkedToEntityTrait`.
 
 ### Reminders

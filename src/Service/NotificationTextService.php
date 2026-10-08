@@ -13,6 +13,9 @@ use Wexample\SymfonyNotification\Entity\Notification;
  */
 class NotificationTextService
 {
+    /** The parameter holding its link, where its category names no route. */
+    public const string PARAMETER_URL = 'url';
+
     public function __construct(
         private readonly NotificationCategoryRegistry $categories,
         private readonly TranslatorInterface $translator,
@@ -34,11 +37,18 @@ class NotificationTextService
 
     /**
      * The page of its subject, where the category names a route and the
-     * notification has a subject; null otherwise.
+     * notification has a subject; else the `url` parameter it was sent with,
+     * for a link no route gives — a signed one —; null otherwise.
      */
     public function getUrl(Notification $notification, int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): ?string
     {
         $route = $this->categories->get($notification->getCategory())->route;
+
+        if ($route === null) {
+            $url = $notification->getParameters()[self::PARAMETER_URL] ?? null;
+
+            return is_string($url) && $url !== '' ? $url : null;
+        }
 
         if ($route === null || ! $notification->hasLinkedEntity()) {
             return null;

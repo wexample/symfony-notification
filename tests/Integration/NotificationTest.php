@@ -108,6 +108,14 @@ class NotificationTest extends KernelTestCase
         $this->assertFalse($this->getPreferences()->getChoices($ada, $this->categories())['invoice.due']['mail']);
     }
 
+    public function testAnUrlParameterIsTheLinkOfACategoryWithoutRoute(): void
+    {
+        $ada = $this->member('ada@example.com');
+        $this->getNotifications()->notify('invoice.due', [$ada], $this->invoice('F-21'), ['number' => 'F-21', 'url' => 'https://app.test/signed?_hash=x']);
+
+        $this->assertSame('https://app.test/signed?_hash=x', $this->getMailbox()->last('ada@example.com')->getFirstLink());
+    }
+
     public function testACategoryWithRolesReachesTheirHoldersOnly(): void
     {
         $treasurer = $this->member('tom@example.com', ['ROLE_TREASURER']);
