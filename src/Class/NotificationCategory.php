@@ -31,6 +31,15 @@ final readonly class NotificationCategory
         public array $channels = [],
         public array $broadcast = [],
         public ?string $route = null,
+        public ?string $label = null,
     ) {
+    }
+
+    /**
+     * The translation id naming it on a page listing the categories.
+     */
+    public function getLabel(): string
+    {
+        return $this->label ?? $this->title;
     }
 }

@@ -12,6 +12,7 @@ wexample_symfony_notification:
         invoice.validated:
             title: app.notifications::invoice_validated.title   # translation ids, read with the parameters
             body: app.notifications::invoice_validated.body
+            label: app.notifications::invoice_validated.label   # its name on the preferences page; the title by default
             level: success                                       # info, success, warning, danger
             group: app.notifications::group.billing              # how the preferences page files it
             roles: [ROLE_MEMBER]                                 # empty: anyone
