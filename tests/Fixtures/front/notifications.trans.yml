@@ -1,0 +1,17 @@
+en:
+  invoice_validated:
+    title: Invoice %number% validated
+    body: "%actor% validated it."
+  invoice_due:
+    title: Invoice %number% is due
+  treasury:
+    title: Treasury report
+
+fr:
+  invoice_validated:
+    title: Facture %number% validée
+    body: "%actor% l'a validée."
+  invoice_due:
+    title: La facture %number% arrive à échéance
+  treasury:
+    title: Rapport de trésorerie

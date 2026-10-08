@@ -1,0 +1,10 @@
+<p><strong>{{ title }}</strong></p>
+{%- if body %}
+<p>{{ body }}</p>
+{%- endif %}
+{%- if url %}
+<p><a href="{{ url }}">{{ '@mail::open' | trans }}</a></p>
+{%- endif %}
+{%- if unsubscribe_url %}
+<p><small><a href="{{ unsubscribe_url }}">{{ '@mail::unsubscribe' | trans }}</a></small></p>
+{%- endif %}

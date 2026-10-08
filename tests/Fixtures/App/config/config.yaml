@@ -1,0 +1,81 @@
+framework:
+  default_locale: en
+  session:
+    storage_factory_id: session.storage.factory.mock_file
+  enabled_locales: [en, fr]
+  mailer:
+    dsn: 'mailbox://default'
+    headers:
+      From: 'App <no-reply@app.test>'
+
+doctrine:
+  orm:
+    mappings:
+      FixtureApp:
+        type: attribute
+        dir: '%kernel.project_dir%/Entity'
+        prefix: 'Wexample\SymfonyNotification\Tests\Fixtures\App\Entity'
+        is_bundle: false
+
+security:
+  providers:
+    members:
+      entity:
+        class: Wexample\SymfonyNotification\Tests\Fixtures\App\Entity\Member
+        property: email
+  firewalls:
+    main:
+      lazy: true
+      provider: members
+
+wexample_symfony_loader:
+  front_paths:
+    front: '%kernel.project_dir%/../front/'
+
+wexample_symfony_mail:
+  app_name: Fixture App
+
+# A validated invoice told by mail, in the room and to the webhook; a due one
+# in the inbox and by mail, once per window; the treasury report to
+# treasurers only.
+wexample_symfony_notification:
+  categories:
+    invoice.validated:
+      title: front.notifications::invoice_validated.title
+      body: front.notifications::invoice_validated.body
+      level: success
+      channels: [mail]
+      broadcast: [chat, webhook]
+    invoice.due:
+      title: front.notifications::invoice_due.title
+      level: warning
+      channels: [mail]
+    treasury.report:
+      title: front.notifications::treasury.title
+      roles: [ROLE_TREASURER]
+  webhook:
+    url: 'https://n8n.test/webhook/notifications'
+    username: robot
+    password: secret
+
+services:
+  _defaults:
+    public: true
+  test.notifications:
+    alias: Wexample\SymfonyNotification\Service\NotificationService
+  test.preferences:
+    alias: Wexample\SymfonyNotification\Service\NotificationPreferenceService
+  test.inbox:
+    alias: Wexample\SymfonyNotification\Service\NotificationInboxService
+  test.mailbox:
+    alias: Wexample\SymfonyMail\Service\MailboxService
+  test.token_storage:
+    alias: security.token_storage
+  Wexample\SymfonyNotification\Tests\Fixtures\App\Controller\:
+    resource: '../Controller/'
+    tags: ['controller.service_arguments']
+    autowire: true
+  Symfony\Component\Notifier\ChatterInterface:
+    class: Wexample\SymfonyNotification\Tests\Fixtures\App\Service\RecordingChatter
+  Symfony\Contracts\HttpClient\HttpClientInterface:
+    class: Symfony\Component\HttpClient\MockHttpClient

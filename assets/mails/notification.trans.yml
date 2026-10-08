@@ -1,0 +1,9 @@
+en:
+  subject: A notification
+  open: Open
+  unsubscribe: Stop receiving these notifications by mail
+
+fr:
+  subject: Une notification
+  open: Ouvrir
+  unsubscribe: Ne plus recevoir ces notifications par mail

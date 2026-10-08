@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Wexample\SymfonyNotification\:
+        resource: '../../{Channel,MessageHandler,Repository,Service}'
+
+    Wexample\SymfonyNotification\Controller\:
+        resource: '../../Controller/'
+        tags: ['controller.service_arguments']
