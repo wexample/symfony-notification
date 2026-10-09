@@ -11,7 +11,8 @@ use Wexample\SymfonyNotification\Interface\NotificationChannelInterface;
 /**
  * The notification sent once to a url — an n8n workflow — as data: its
  * category, its level, its subject and its parameters, for the workflow to
- * do what it wants with. Without `webhook.url`, nothing.
+ * do what it wants with. Without `webhook.url`, nothing; nor without an HTTP
+ * client — `framework.http_client` off.
  */
 class WebhookChannel implements NotificationChannelInterface
 {
@@ -21,11 +22,11 @@ class WebhookChannel implements NotificationChannelInterface
      * @param array{url: ?string, method: string, username: ?string, password: ?string, timeout: float} $webhook
      */
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
         #[Autowire(param: 'wexample_symfony_notification.webhook')]
         private readonly array $webhook,
         #[Autowire(param: 'kernel.environment')]
         private readonly string $environment,
+        private readonly ?HttpClientInterface $httpClient = null,
     ) {
     }
 
@@ -41,7 +42,7 @@ class WebhookChannel implements NotificationChannelInterface
 
     public function deliver(NotificationCategory $category, Notification $notification, ?object $recipient): void
     {
-        if (! $this->webhook['url']) {
+        if (! $this->webhook['url'] || $this->httpClient === null) {
             return;
         }
 
