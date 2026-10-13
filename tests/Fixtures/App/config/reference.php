@@ -1311,6 +1311,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  * @psalm-type WexampleSymfonyNotificationConfig = array{
  *     categories?: array<string, array{ // Default: []
  *         title?: scalar|Param|null, // The translation id of its title, read with its parameters in the recipient's language.
+ *         label?: scalar|Param|null, // The translation id naming the category on the preferences page, without parameters. Null, its title. // Default: null
  *         body?: scalar|Param|null, // The translation id of its text, if it has one. // Default: null
  *         level?: "info"|"success"|"warning"|"danger"|Param, // Default: "info"
  *         group?: scalar|Param|null, // Where the preferences page files it, a translation id: categories of a group are shown together. // Default: null
