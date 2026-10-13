@@ -1,7 +1,7 @@
 {
   "name": "wexample/symfony-notification",
   "description": "Notifications addressed to people: a catalogue of types, an inbox, each person's choice of channel, and once per window for reminders — sent by mail, chat or webhook",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "library",
   "license": "MIT",
   "autoload": {
