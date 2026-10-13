@@ -1,8 +1,14 @@
 # Receiving side of network's webhooks and the 'wexbot' scheduled reminders (n8n, 2021–2023)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
+
+## Status — dropped (2026-10-13, weeger)
+
+Not done, on purpose. Everything here hangs on tools no longer in use: wexbot is dead, n8n is not used
+today, and the Rocket.Chat → Twitter relay went with them. The one reusable idea — reminders sent on a
+schedule — needs nothing from this archive: Symfony Scheduler covers it the day an application wants one.
 
 ## Read this first — status of this todo
 
