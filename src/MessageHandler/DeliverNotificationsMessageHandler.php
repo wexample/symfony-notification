@@ -26,7 +26,7 @@ use Wexample\SymfonyNotification\Service\NotificationRecipientService;
 class DeliverNotificationsMessageHandler
 {
     /** @var array<string, NotificationChannelInterface> */
-    private array $channels = [];
+    private readonly array $channels;
 
     /**
      * @param iterable<NotificationChannelInterface> $channels
@@ -41,9 +41,12 @@ class DeliverNotificationsMessageHandler
         #[AutowireIterator(NotificationChannelInterface::TAG)]
         iterable $channels = [],
     ) {
+        $byName = [];
         foreach ($channels as $channel) {
-            $this->channels[$channel::getName()] = $channel;
+            $byName[$channel::getName()] = $channel;
         }
+
+        $this->channels = $byName;
     }
 
     public function __invoke(DeliverNotificationsMessage $message): void
