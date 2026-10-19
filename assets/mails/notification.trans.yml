@@ -12,3 +12,103 @@ zh:
   subject: 通知
   open: 打开
   unsubscribe: 通过邮件停止接收这些通知
+
+ar:
+  subject: إشعار
+  open: فتح
+  unsubscribe: 'أوقف استلام هذه الإشعارات عبر البريد'
+
+hi:
+  subject: 'एक सूचना'
+  open: खोलें
+  unsubscribe: 'इन सूचनाओं को मेल द्वारा प्राप्त करना बंद करें'
+
+he:
+  subject: התראה
+  open: פתח
+  unsubscribe: 'הפסק לקבל התראות אלו במייל'
+
+fa:
+  subject: 'یک اعلان'
+  open: 'باز کردن'
+  unsubscribe: 'دریافت این اعلان‌ها از طریق ایمیل را متوقف کنید'
+
+ur:
+  subject: 'ایک اطلاع'
+  open: کھولیں
+  unsubscribe: 'ان اطلاعات کو ای میل کے ذریعے وصول کرنا بند کریں'
+
+ja:
+  subject: 通知
+  open: 開く
+  unsubscribe: これらの通知をメールで受け取るのをやめる
+
+ko:
+  subject: 알림
+  open: 열기
+  unsubscribe: '이 알림을 더 이상 이메일로 받지 않으려면 구독 해지'
+
+bn:
+  subject: 'একটি বিজ্ঞপ্তি'
+  open: খোলুন
+  unsubscribe: 'মেইলে এই বিজ্ঞপ্তিগুলি পানো বন্ধ করুন'
+
+th:
+  subject: การแจ้งเตือน
+  open: เปิด
+  unsubscribe: หยุดรับการแจ้งเตือนเหล่านี้ทางอีเมล
+
+de:
+  subject: 'Eine Benachrichtigung'
+  open: Öffnen
+  unsubscribe: 'Hören Sie auf, diese Benachrichtigungen per E-Mail zu erhalten'
+
+fi:
+  subject: Ilmoitus
+  open: Avaa
+  unsubscribe: 'Lopeta näiden ilmoitusten vastaanottaminen sähköpostitse'
+
+ru:
+  subject: Уведомление
+  open: Открыть
+  unsubscribe: 'Отменить получение этих уведомлений по почте'
+
+pl:
+  subject: Powiadomienie
+  open: Otwórz
+  unsubscribe: 'Zrezygnuj z otrzymywania tych powiadomień pocztą'
+
+es:
+  subject: 'Una notificación'
+  open: Abrir
+  unsubscribe: 'Dejar de recibir estas notificaciones por correo'
+
+it:
+  subject: 'Una notifica'
+  open: Apri
+  unsubscribe: 'Interrompi la ricezione di queste notifiche via email'
+
+pt_BR:
+  subject: 'Uma notificação'
+  open: Abrir
+  unsubscribe: 'Pare de receber essas notificações por e-mail'
+
+tr:
+  subject: 'Bir bildirim'
+  open: Aç
+  unsubscribe: 'Bu bildirimleri e-posta ile almaktan vazgeç'
+
+vi:
+  subject: 'Thông báo'
+  open: Mở
+  unsubscribe: 'Ngừng nhận những thông báo này qua email'
+
+id:
+  subject: 'Sebuah notifikasi'
+  open: Buka
+  unsubscribe: 'Berhenti menerima notifikasi ini melalui email'
+
+nl:
+  subject: 'Een melding'
+  open: Openen
+  unsubscribe: 'Stop met het ontvangen van deze meldingen per e-mail'

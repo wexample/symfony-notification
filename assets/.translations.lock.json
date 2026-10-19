@@ -1,4 +1,284 @@
 {
+    "mails/notification.ar.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.bn.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.de.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.es.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.fa.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.fi.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.he.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.hi.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.id.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.it.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.ja.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.ko.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.nl.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.pl.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.pt_BR.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.ru.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.th.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.tr.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.ur.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
+    "mails/notification.vi.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    },
     "mails/notification.zh.yml": {
         "open": {
             "hash": "f92a80ac56704cfb76c830d293328a94",
