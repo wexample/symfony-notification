@@ -7,3 +7,8 @@ fr:
   subject: Une notification
   open: Ouvrir
   unsubscribe: Ne plus recevoir ces notifications par mail
+
+zh:
+  subject: 通知
+  open: 打开
+  unsubscribe: 通过邮件停止接收这些通知

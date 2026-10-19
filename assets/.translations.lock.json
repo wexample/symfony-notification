@@ -1,0 +1,16 @@
+{
+    "mails/notification.zh.yml": {
+        "open": {
+            "hash": "f92a80ac56704cfb76c830d293328a94",
+            "engine": "syrtis"
+        },
+        "subject": {
+            "hash": "920cf5781e2757e671f3873cc5baef7a",
+            "engine": "syrtis"
+        },
+        "unsubscribe": {
+            "hash": "a873e7947888d8954f436063bde64fed",
+            "engine": "syrtis"
+        }
+    }
+}
