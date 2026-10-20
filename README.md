@@ -1,6 +1,6 @@
 # symfony-notification
 
-Version: 2.1.1
+Version: 2.1.2
 
 ## What it is
 
@@ -115,9 +115,9 @@ The suite includes packages for configuration management, file handling, prompts
 - symfony/security-core: ^7.4 || ^8.0
 - symfony/uid: ^7.4 || ^8.0
 - wexample/symfony-helpers: >=17.0.0
-- wexample/symfony-loader: >=23.2.0
-- wexample/symfony-mail: >=2.0.0
-- wexample/symfony-translations: >=14.0.0
+- wexample/symfony-loader: >=23.3.0
+- wexample/symfony-mail: >=3.0.0
+- wexample/symfony-translations: >=15.0.0
 
 ## Versioning & Compatibility Policy
 
