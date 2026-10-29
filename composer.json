@@ -1,7 +1,7 @@
 {
   "name": "wexample/symfony-notification",
   "description": "Notifications addressed to people: a catalogue of types, an inbox, each person's choice of channel, and once per window for reminders — sent by mail, chat or webhook",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "type": "library",
   "license": "MIT",
   "autoload": {
@@ -32,7 +32,7 @@
     "symfony/security-core": "^7.4 || ^8.0",
     "symfony/uid": "^7.4 || ^8.0",
     "wexample/symfony-helpers": ">=19.1.0",
-    "wexample/symfony-loader": ">=25.3.0",
+    "wexample/symfony-loader": ">=26.0.0",
     "wexample/symfony-mail": ">=4.0.0",
     "wexample/symfony-translations": ">=17.0.1"
   },
