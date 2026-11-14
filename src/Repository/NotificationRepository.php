@@ -111,6 +111,51 @@ class NotificationRepository extends ServiceEntityRepository
         return (bool) $builder->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * existsSince() for many recipients in one query a few hundred of them:
+     * which were already told this, about this subject, since then.
+     *
+     * @param list<array{string, string}> $recipients type and id of each
+     *
+     * @return array<string, true> by "type#id", those already told
+     */
+    public function findToldSince(string $category, array $recipients, ?string $subjectType, ?Uuid $subjectId, DateTimeInterface $since): array
+    {
+        $told = [];
+
+        foreach (array_chunk($recipients, 500) as $chunk) {
+            $builder = $this->createQueryBuilder('notification')
+                ->select('DISTINCT notification.recipientType, notification.recipientId')
+                ->where('notification.category = :category')
+                ->andWhere('notification.dateCreated >= :since')
+                ->andWhere('notification.recipientType IN (:recipientTypes)')
+                ->andWhere('notification.recipientId IN (:recipientIds)')
+                ->setParameter('category', $category)
+                ->setParameter('since', $since)
+                ->setParameter('recipientTypes', array_values(array_unique(array_column($chunk, 0))))
+                ->setParameter('recipientIds', array_values(array_unique(array_column($chunk, 1))));
+
+            if ($subjectType === null) {
+                $builder->andWhere('notification.entityType IS NULL');
+            } else {
+                $builder
+                    ->andWhere('notification.entityType = :subjectType')
+                    ->andWhere('notification.entityId = :subjectId')
+                    ->setParameter('subjectType', $subjectType)
+                    ->setParameter('subjectId', $subjectId, UuidType::NAME);
+            }
+
+            // Types and ids are matched apart, so a row may pair a type of
+            // one recipient with the id of another: such a pair is no
+            // recipient asked about, and is never looked up.
+            foreach ($builder->getQuery()->getArrayResult() as $row) {
+                $told[$row['recipientType'].'#'.$row['recipientId']] = true;
+            }
+        }
+
+        return $told;
+    }
+
     private function createRecipientQuery(string $recipientType, string $recipientId): QueryBuilder
     {
         return $this->createQueryBuilder('notification')

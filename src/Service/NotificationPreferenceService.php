@@ -44,6 +44,44 @@ class NotificationPreferenceService
         return $this->preferences->findOne($type, $id, $category->name, $channel)?->isEnabled() ?? true;
     }
 
+    /**
+     * isEnabled() for each of $recipients and each channel of $category, in
+     * a query per recipient type rather than one per recipient and channel.
+     *
+     * @param array<array-key, object> $recipients
+     *
+     * @return array<array-key, array<string, bool>> under the keys of $recipients, channel → enabled
+     */
+    public function getEnabledForEach(array $recipients, NotificationCategory $category): array
+    {
+        $keys = array_map($this->recipients->key(...), $recipients);
+        $idsByType = [];
+
+        foreach ($keys as [$type, $id]) {
+            $idsByType[$type][$id] = $id;
+        }
+
+        $stored = [];
+
+        foreach ($idsByType as $type => $ids) {
+            foreach (array_chunk(array_values($ids), 500) as $chunk) {
+                foreach ($this->preferences->findForRecipients($type, $chunk, $category->name) as $preference) {
+                    $stored[$type.'#'.$preference->getRecipientId()][$preference->getChannel()] = $preference->isEnabled();
+                }
+            }
+        }
+
+        $enabled = [];
+
+        foreach ($keys as $index => [$type, $id]) {
+            foreach ($category->channels as $channel) {
+                $enabled[$index][$channel] = $stored[$type.'#'.$id][$channel] ?? true;
+            }
+        }
+
+        return $enabled;
+    }
+
     public function set(object $recipient, string $category, string $channel, bool $enabled): void
     {
         [$type, $id] = $this->recipients->key($recipient);

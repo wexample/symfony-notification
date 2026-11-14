@@ -32,6 +32,11 @@ class NotificationPreference extends AbstractEntity
         parent::__construct();
     }
 
+    public function getRecipientId(): string
+    {
+        return $this->recipientId;
+    }
+
     public function getCategory(): string
     {
         return $this->category;

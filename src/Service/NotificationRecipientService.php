@@ -42,4 +42,45 @@ class NotificationRecipientService
             return null;
         }
     }
+
+    /**
+     * find() for many at once, a query per type rather than one per
+     * recipient. What is not found is missing from the result, as find()
+     * answers null for it.
+     *
+     * @param iterable<array{string, string}> $keys type and id, as key() gives them
+     *
+     * @return array<string, object> by "type#id"
+     */
+    public function findAll(iterable $keys): array
+    {
+        $idsByType = [];
+
+        foreach ($keys as [$type, $id]) {
+            $idsByType[$type][$id] = $id;
+        }
+
+        $found = [];
+
+        foreach ($idsByType as $type => $ids) {
+            try {
+                $field = $this->entityManager->getClassMetadata($type)->getSingleIdentifierFieldName();
+
+                foreach ($this->entityManager->getRepository($type)->findBy([$field => array_values($ids)]) as $entity) {
+                    $found[$type.'#'.$entity->getId()] = $entity;
+                }
+            } catch (Throwable) {
+                // What one query cannot read — no entity, a composite key, an
+                // id its column refuses — is read as find() reads it, each
+                // failing on its own.
+                foreach ($ids as $id) {
+                    if ($entity = $this->find($type, (string) $id)) {
+                        $found[$type.'#'.$id] = $entity;
+                    }
+                }
+            }
+        }
+
+        return $found;
+    }
 }

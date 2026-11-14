@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Uid\Uuid;
 use Throwable;
 use Wexample\SymfonyNotification\Class\NotificationCategory;
 use Wexample\SymfonyNotification\Entity\Notification;
@@ -51,9 +52,18 @@ class DeliverNotificationsMessageHandler
 
     public function __invoke(DeliverNotificationsMessage $message): void
     {
+        // Read at once, then put back in the order notify() made them: the
+        // first one stands for the batch on the broadcast channels.
+        $ids = array_values(array_filter($message->ids, Uuid::isValid(...)));
+        $byId = [];
+
+        foreach ($ids ? $this->repository->findBy(['id' => $ids]) : [] as $notification) {
+            $byId[(string) $notification->getId()] = $notification;
+        }
+
         $notifications = array_values(array_filter(array_map(
-            fn (string $id) => $this->repository->find($id),
-            $message->ids
+            static fn (string $id) => $byId[Uuid::fromString($id)->toRfc4122()] ?? null,
+            $ids
         )));
 
         if (! $notifications) {
@@ -62,15 +72,30 @@ class DeliverNotificationsMessageHandler
 
         $category = $this->categories->get($notifications[0]->getCategory());
 
-        foreach ($notifications as $notification) {
-            $recipient = $this->recipients->find($notification->getRecipientType(), $notification->getRecipientId());
+        // The recipients and what they turned off, read for the whole batch:
+        // a notify() to a whole team is otherwise a query per member and
+        // another per member and channel.
+        $found = $this->recipients->findAll(array_map(
+            static fn (Notification $notification) => [$notification->getRecipientType(), $notification->getRecipientId()],
+            $notifications
+        ));
+        $recipients = [];
 
-            if (! $recipient) {
-                continue;
+        foreach ($notifications as $index => $notification) {
+            $recipient = $found[$notification->getRecipientType().'#'.$notification->getRecipientId()] ?? null;
+
+            if ($recipient) {
+                $recipients[$index] = $recipient;
             }
+        }
+
+        $enabled = $this->preferences->getEnabledForEach($recipients, $category);
+
+        foreach ($recipients as $index => $recipient) {
+            $notification = $notifications[$index];
 
             foreach ($category->channels as $name) {
-                if ($this->preferences->isEnabled($recipient, $category, $name)
+                if ($enabled[$index][$name]
                     && $this->send($name, true, $category, $notification, $recipient)) {
                     $notification->addChannel($name);
                 }

@@ -27,6 +27,16 @@ class NotificationPreferenceRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param list<string> $recipientIds
+     *
+     * @return list<NotificationPreference>
+     */
+    public function findForRecipients(string $recipientType, array $recipientIds, string $category): array
+    {
+        return $this->findBy(['recipientType' => $recipientType, 'recipientId' => $recipientIds, 'category' => $category]);
+    }
+
+    /**
      * @return list<NotificationPreference>
      */
     public function findForRecipient(string $recipientType, string $recipientId): array

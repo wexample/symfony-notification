@@ -14,6 +14,7 @@ use Wexample\SymfonyMail\Service\MailboxService;
 use Wexample\SymfonyNotification\Entity\Notification;
 use Wexample\SymfonyNotification\Service\NotificationInboxService;
 use Wexample\SymfonyNotification\Service\NotificationPreferenceService;
+use Wexample\SymfonyNotification\Service\NotificationRecipientService;
 use Wexample\SymfonyNotification\Service\NotificationService;
 use Wexample\SymfonyNotification\Tests\Fixtures\App\Entity\Invoice;
 use Wexample\SymfonyNotification\Tests\Fixtures\App\Entity\Member;
@@ -92,6 +93,44 @@ class NotificationTest extends KernelTestCase
         $this->assertSame(1, $this->getInbox()->countUnread());
     }
 
+    public function testEachMemberOfABatchKeepsItsOwnChoices(): void
+    {
+        [$ada, $bob, $cleo] = [$this->member('ada@example.com'), $this->member('bob@example.com'), $this->member('cleo@example.com')];
+        $this->getPreferences()->set($bob, 'invoice.validated', 'mail', false);
+        // Another category's choice is not this one's.
+        $this->getPreferences()->set($cleo, 'invoice.due', 'mail', false);
+
+        $created = $this->getNotifications()->notify('invoice.validated', [$ada, $bob, $cleo], $this->invoice('F-13'), ['number' => 'F-13', 'actor' => 'Cleo']);
+
+        $this->assertSame(
+            [['mail'], [], ['mail']],
+            array_map(fn (Notification $notification) => $this->reload($notification)->getChannels(), $created)
+        );
+        $this->assertNotNull($this->getMailbox()->last('ada@example.com'));
+        $this->assertNull($this->getMailbox()->last('bob@example.com'));
+        $this->assertNotNull($this->getMailbox()->last('cleo@example.com'));
+    }
+
+    public function testRecipientsAreFoundAtOnceAsOneByOne(): void
+    {
+        [$ada, $bob] = [$this->member('ada@example.com'), $this->member('bob@example.com')];
+        $recipients = self::getContainer()->get(NotificationRecipientService::class);
+        $keys = [
+            $recipients->key($ada),
+            $recipients->key($bob),
+            [Member::class, '0191f2a4-0000-7000-8000-000000000000'],
+            ['App\\No\\Such\\Entity', '1'],
+        ];
+
+        $this->assertSame(
+            [Member::class.'#'.$ada->getId() => $ada, Member::class.'#'.$bob->getId() => $bob],
+            $recipients->findAll($keys)
+        );
+
+        // An id the column refuses fails alone, as with find().
+        $this->assertSame([Member::class.'#'.$ada->getId() => $ada], $recipients->findAll([$keys[0], [Member::class, 'not-an-id']]));
+    }
+
     public function testTheLinkOfTheMailTurnsTheMailOffWithoutSigningIn(): void
     {
         $ada = $this->member('ada@example.com');
@@ -138,6 +177,11 @@ class NotificationTest extends KernelTestCase
 
         // Another invoice is another subject.
         $this->assertCount(1, $notifications->notifyOnce('invoice.due', [$ada], $this->invoice('F-16'), new DateTimeImmutable('-1 day'), ['number' => 'F-16']));
+
+        // Asked for a whole list at once, only who was not told yet is.
+        $bob = $this->member('bob@example.com');
+        $created = $notifications->notifyOnce('invoice.due', [$ada, $bob, $ada], $invoice, new DateTimeImmutable('-1 day'), ['number' => 'F-15']);
+        $this->assertSame([(string) $bob->getId()], array_map(static fn (Notification $notification) => $notification->getRecipientId(), $created));
 
         // The next window starts after the last notification: told again.
         $this->assertCount(1, $notifications->notifyOnce('invoice.due', [$ada], $invoice, new DateTimeImmutable('+1 second'), ['number' => 'F-15']));

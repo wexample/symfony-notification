@@ -87,18 +87,25 @@ class NotificationService
         $subjectKey = $subject ? $this->recipients->key($subject) : null;
         $actorKey = $actor ? $this->recipients->key($actor) : null;
         $created = [];
-        $seen = [];
+        $keys = [];
 
         foreach ($recipients as $recipient) {
             [$type, $id] = $this->recipients->key($recipient);
 
-            if (isset($seen[$type . '#' . $id]) || ! $this->categories->mayReceive($definition, $recipient)) {
+            if (isset($keys[$type . '#' . $id]) || ! $this->categories->mayReceive($definition, $recipient)) {
                 continue;
             }
 
-            $seen[$type . '#' . $id] = true;
+            $keys[$type . '#' . $id] = [$type, $id];
+        }
 
-            if ($since && $this->repository->existsSince($category, $type, $id, $subjectKey[0] ?? null, $subjectKey ? Uuid::fromString($subjectKey[1]) : null, $since)) {
+        // Asked for all of them at once rather than a query per recipient.
+        $told = $since && $keys
+            ? $this->repository->findToldSince($category, array_values($keys), $subjectKey[0] ?? null, $subjectKey ? Uuid::fromString($subjectKey[1]) : null, $since)
+            : [];
+
+        foreach ($keys as $key => [$type, $id]) {
+            if (isset($told[$key])) {
                 continue;
             }
 
