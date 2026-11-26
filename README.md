@@ -1,6 +1,6 @@
 # symfony-notification
 
-Version: 2.2.2
+Version: 2.2.3
 
 Notifications addressed to people: a catalogue of types, an inbox, each person's choice of channel, and once per window for reminders — sent by mail, chat or webhook
 
